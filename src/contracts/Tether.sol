@@ -11,13 +11,13 @@ contract Tether {
 	event Transfer(
 		address indexed _from,
 		address indexed _to,
-		uint _value,
+		uint _value
 	);
 
 	event Approval(
 		address indexed _owner,
 		address indexed _spender,
-		uint _value,
+		uint _value
 	);
 
 
@@ -25,7 +25,7 @@ contract Tether {
 	mapping(address => mapping(address => uint256)) public allowance;
 
 
-	constructor() {
+	constructor() public {
 		balanceOf[msg.sender] = totalSupply;
 	}
 	function transfer(address _to, uint256 _value) public returns (bool success) {
@@ -36,7 +36,7 @@ contract Tether {
 		return true;
 	}
 
-	function approve(address _spender, uint256 _value) public return (bool success) {
+	function approve(address _spender, uint256 _value) public returns (bool success) {
 		allowance[msg.sender][_spender] = _value;
 		emit Approval(msg.sender, _spender, _value);
 		return true;
