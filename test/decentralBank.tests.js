@@ -79,6 +79,17 @@ contract('DecentralBank', ([owner, customer]) => {
 
 			await decentralBank.issueTokens({from: customer}).should.be.rejected;
 
+			await decentralBank.unstakeTokens({from: customer})
+
+			result = await tether.balanceOf(customer)
+			assert.equal(result.toString(), tokens('100'), 'customer mock wallet balance after unstaking')
+
+			result = await tether.balanceOf(decentralBank.address)
+			assert.equal(result.toString(), tokens('0'), 'decentral bank mock wallet balance after unstaking')
+
+			result = await decentralBank.isStaking(customer)
+			assert.equal(result.toString(), 'false', 'cutomer is no longer staking after unstaking')
+
 
 	})
 
