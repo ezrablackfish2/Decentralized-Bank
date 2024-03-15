@@ -68,6 +68,18 @@ class App extends Component {
 		this.setState({ loading: false })
 	}
 
+
+	stakeTokens = (amount) => {
+		this.setState({ laoding: true })
+		this.state.tether.methods.approve(this.state.decentralBank._address, amount).send({ from: this.state.account}).on('transactionHash', (hash) => {
+		this.state.decentralBank.methods.depositTokens(amount).send({from: this.state.account}).on('transactionHash', (hash) => {
+		this.setState({ loading: false })
+		})
+		})
+	}
+
+
+
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -82,6 +94,18 @@ class App extends Component {
 		}
 	}
 	render() {
+		let content
+		{this.state.loading ?
+				content = 
+				<p id='loader' className='text-center' 
+				style={{ margin: '30px'}}> 
+				Loading Please... </p> 
+				: 
+				content = <Main 
+				tetherBalance={this.state.tetherBalance}
+				rwdBalance={this.state.rwdBalance}
+				stakingBalance={this.state.stakingBalance}
+				stakeTokens={this.stakeTokens}/>}
 		return (
 			<div style={{ 
 				fontFamily: 'Quicksand', 
@@ -91,7 +115,7 @@ class App extends Component {
 				<div className='row'>
 					<main role='main' className='col-lg-12 ml-auto mr-auto' style={{ maxWidth: '600px', minHeight: '100vm' }}>
 					<div>
-						<Main/>			 
+						{ content }			 
 					</div>
 					</main>
 				</div>
