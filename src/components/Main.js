@@ -9,13 +9,13 @@ class Main extends Component {
 			<div id='content' className='mt-3'>
 				<table className='table text-muted text-center'>
 					<thead>
-					<tr style={{ color: 'black' }}>
+					<tr style={{ color: 'white' }}>
 						<th scope='col'>Staking Balance</th>
 						<th scope='col'>Reward Balance</th>
 					</tr>
 					</thead>
 					<tbody>
-					<tr style={{ color: 'black' }}>
+					<tr style={{ color: 'white' }}>
 						<td>{window.web3.utils.fromWei(this.props.stakingBalance, 'Ether')} EZ</td>
 						<td>{window.web3.utils.fromWei(this.props.rwdBalance, 'Ether')} RWD</td>
 					</tr>
@@ -30,7 +30,8 @@ class Main extends Component {
 							amount = window.web3.utils.toWei(amount, 'Ether')
 							this.props.stakeTokens(amount)
 						}}
-						className='mb-3'>
+						className='mb-3'
+						style={{ padding: '15px' }}>
 						<div style={{ borderSpacing:'0 1em'}}>
 						<label className='float-left' style={{ marginLeft: '15px' }}><b>Stake Tokens</b>
 						</label>
@@ -56,9 +57,19 @@ class Main extends Component {
 						
 						</div>
 					</form>
-					<button className='btn btn-primary btn-lg btn-block'>
+					<div style={{ padding: '15px'}}>
+					<button 
+						type='submit'
+						onClick={(event) => {
+							event.preventDefault(
+								this.props.unstakeTokens()
+							)
+						}}
+						className='btn btn-primary btn-lg btn-block'
+						>
 						Withdraw
 					</button>
+					</div>
 					<div className='card-body text-center' style={{ color: 'blue' }}>
 						AirDrop
 					</div>
